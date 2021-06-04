@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useState, useEffect } from "react";
+import CountrySelector from "./components/CountrySelector/CountrySelector";
+import HighLight from "./components/HighLight/HighLight";
+import Summary from "./components/Summary/Summary";
+import { getCountries, getReportByCountry } from "./apis/apis";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [countries, setCountries] = useState([]);
+	const [selectedCountryId, setSelectedCountryId] = useState("");
+	const [report, setReport] = useState([]);
+
+	useEffect(() => {
+		getCountries().then((res) => setCountries(res.data));
+	}, []);
+
+	const handleOnChange = (e) => {
+		setSelectedCountryId(e.target.value);
+	};
+
+	useEffect(() => {
+		const { Slug } = countries.find(
+			(country) => country.ISO2.toLowerCase() === selectedCountryId
+		);
+		getReportByCountry(Slug).then((res) => {
+			res.data.pop();
+			setReport(res.data);
+		});
+	}, [countries, selectedCountryId]);
+
+	return (
+		<Fragment>
+			<CountrySelector
+				countries={countries}
+				handleOnChange={handleOnChange}
+			/>
+			<HighLight report={report} />
+			<Summary report={report} />
+		</Fragment>
+	);
 }
 
 export default App;
