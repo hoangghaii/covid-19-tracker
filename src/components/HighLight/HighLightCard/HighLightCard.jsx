@@ -1,10 +1,4 @@
-import {
-	Card,
-	CardContent,
-	Grid,
-	Typography,
-	makeStyles,
-} from "@material-ui/core";
+import { Card, CardContent, Typography, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -32,26 +26,24 @@ function HighLightCard(props) {
 	const styles = useStyles({ type });
 
 	return (
-		<Grid item sm={4} xs={12}>
-			<Card className={styles.wrapper}>
-				<CardContent>
-					<Typography
-						component="p"
-						variant="body2"
-						className={styles.title}
-					>
-						{title}
-					</Typography>
-					<Typography
-						component="span"
-						variant="body2"
-						className={styles.count}
-					>
-						{count}
-					</Typography>
-				</CardContent>
-			</Card>
-		</Grid>
+		<Card className={styles.wrapper}>
+			<CardContent>
+				<Typography
+					component="p"
+					variant="body2"
+					className={styles.title}
+				>
+					{title}
+				</Typography>
+				<Typography
+					component="span"
+					variant="body2"
+					className={styles.count}
+				>
+					{count}
+				</Typography>
+			</CardContent>
+		</Card>
 	);
 }
 

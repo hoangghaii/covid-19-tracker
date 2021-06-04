@@ -10,7 +10,10 @@ function App() {
 	const [report, setReport] = useState([]);
 
 	useEffect(() => {
-		getCountries().then((res) => setCountries(res.data));
+		getCountries().then((res) => {
+			setCountries(res.data);
+			setSelectedCountryId("vn");
+		});
 	}, []);
 
 	const handleOnChange = (e) => {
@@ -18,13 +21,16 @@ function App() {
 	};
 
 	useEffect(() => {
-		const { Slug } = countries.find(
-			(country) => country.ISO2.toLowerCase() === selectedCountryId
-		);
-		getReportByCountry(Slug).then((res) => {
-			res.data.pop();
-			setReport(res.data);
-		});
+		if (selectedCountryId) {
+			const { Slug } = countries.find(
+				(country) => country.ISO2.toLowerCase() === selectedCountryId
+			);
+
+			getReportByCountry(Slug).then((res) => {
+				res.data.pop();
+				setReport(res.data);
+			});
+		}
 	}, [countries, selectedCountryId]);
 
 	return (
@@ -32,6 +38,7 @@ function App() {
 			<CountrySelector
 				countries={countries}
 				handleOnChange={handleOnChange}
+				value={selectedCountryId}
 			/>
 			<HighLight report={report} />
 			<Summary report={report} />

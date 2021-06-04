@@ -43,7 +43,7 @@ CountrySelector.propTypes = {
 CountrySelector.defaultProps = {
 	countries: [],
 	handleOnChange: null,
-	value: "",
+	// value: "",
 };
 
 export default CountrySelector;

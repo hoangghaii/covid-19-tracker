@@ -1,6 +1,6 @@
-import React from "react";
+import { Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+import React from "react";
 import HighLightCard from "./HighLightCard/HighLightCard";
 
 function HighLight(props) {
@@ -28,45 +28,21 @@ function HighLight(props) {
 
 	return (
 		<Grid container spacing={3}>
-			{summary.map((item) => (
-				<HighLightCard
-					title={item.title}
-					count={item.count}
-					type={item.type}
-				/>
+			{summary.map((item, index) => (
+				<Grid item sm={4} xs={12} key={index}>
+					<HighLightCard
+						title={item.title}
+						count={item.count}
+						type={item.type}
+					/>
+				</Grid>
 			))}
-
-			<Grid item sm={4} xs={12}>
-				<Card>
-					<CardContent>
-						<Typography component="p" variant="body2">
-							So ca khoi
-						</Typography>
-						<Typography component="span" variant="body2">
-							3000
-						</Typography>
-					</CardContent>
-				</Card>
-			</Grid>
-
-			<Grid item sm={4} xs={12}>
-				<Card>
-					<CardContent>
-						<Typography component="p" variant="body2">
-							So ca tu vong
-						</Typography>
-						<Typography component="span" variant="body2">
-							3000
-						</Typography>
-					</CardContent>
-				</Card>
-			</Grid>
 		</Grid>
 	);
 }
 
 HighLight.propTypes = {
-	report: PropTypes.object,
+	report: PropTypes.array,
 };
 
 export default HighLight;
