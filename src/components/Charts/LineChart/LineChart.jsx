@@ -63,8 +63,26 @@ function LineChart(props) {
 	const [reportType, setReportType] = useState("all");
 
 	useEffect(() => {
-		setOptions(generateOptions(data));
-	}, [data]);
+		let customData = [];
+
+		//xu ly thay doi reportType
+		switch (reportType) {
+			case "all":
+				customData = data;
+				break;
+			case "30":
+				customData = data.slice(data.length - 30);
+				break;
+			case "7":
+				customData = data.slice(data.length - 7);
+				break;
+			default:
+				customData = data;
+				break;
+		}
+
+		setOptions(generateOptions(customData));
+	}, [data, reportType]);
 
 	return (
 		<div>
@@ -103,4 +121,4 @@ LineChart.propTypes = {
 	data: PropTypes.array,
 };
 
-export default LineChart;
+export default React.memo(LineChart);

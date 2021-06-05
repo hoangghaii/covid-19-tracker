@@ -28,8 +28,8 @@ function HighLight(props) {
 
 	return (
 		<Grid container spacing={3}>
-			{summary.map((item, index) => (
-				<Grid item sm={4} xs={12} key={index}>
+			{summary.map((item) => (
+				<Grid item sm={4} xs={12} key={item.type}>
 					<HighLightCard
 						title={item.title}
 						count={item.count}
